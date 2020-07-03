@@ -11,11 +11,14 @@ app.use("/", express.static(__dirname + "/build"));
 app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 
 
-mongoose.connect("mongodb://localhost/my-app-db",{
-	useNewUrlParser:true,
-	useCreateIndex: true,
-	useUnifiedTopology: true,
-});
+mongoose.connect(
+  process.env.MONGODB_URL || "mongodb://localhost/my-app-db",
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const Product = mongoose.model(
   "products",
